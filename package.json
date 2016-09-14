@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/nightowlware/nightowl-gui/issues"
   },
-  "homepage": "https://github.com/nightowlware/nightowl-gui#readme"
+  "homepage": "https://github.com/nightowlware/nightowl-gui#readme",
+  "dependencies": {
+    "nog-css-reset": "git+https://github.com/nightowlware/nog-css-reset.git"
+  }
 }
