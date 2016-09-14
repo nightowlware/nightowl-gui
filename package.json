@@ -1,0 +1,24 @@
+{
+  "name": "nightowl-gui",
+  "version": "0.1.0",
+  "description": "NightOwl GUI is a simple GUI system for the web.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nightowlware/nightowl-gui.git"
+  },
+  "keywords": [
+    "web",
+    "gui",
+    "frontend",
+    "css",
+    "html5",
+    "javascript",
+    "es6"
+  ],
+  "author": "Chris Anderson",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nightowlware/nightowl-gui/issues"
+  },
+  "homepage": "https://github.com/nightowlware/nightowl-gui#readme"
+}
