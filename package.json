@@ -2,6 +2,9 @@
   "name": "nightowl-gui",
   "version": "0.1.0",
   "description": "NightOwl GUI is a simple GUI system for the web.",
+  "scripts": {
+    "test": "node test/server.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/nightowlware/nightowl-gui.git"
@@ -22,5 +25,8 @@
   "homepage": "https://github.com/nightowlware/nightowl-gui#readme",
   "dependencies": {
     "nog-css-reset": "git+https://github.com/nightowlware/nog-css-reset.git"
+  },
+  "devDependencies": {
+    "express": "^4.14.0"
   }
 }
