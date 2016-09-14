@@ -22,5 +22,8 @@
     "**/.*",
     "node_modules",
     "bower_components"
-  ]
+  ],
+  "dependencies": {
+    "nog-css-reset": "https://github.com/nightowlware/nog-css-reset.git"
+  }
 }
