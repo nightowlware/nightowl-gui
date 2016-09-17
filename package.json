@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "NightOwl GUI is a simple GUI system for the web.",
   "scripts": {
-    "test": "node test/server.js"
+    "start": "node test/server.js"
   },
   "repository": {
     "type": "git",
@@ -27,6 +27,11 @@
     "nog-css-reset": "git+https://github.com/nightowlware/nog-css-reset.git"
   },
   "devDependencies": {
-    "express": "^4.14.0"
+    "express": "^4.14.0",
+    "gulp": "github:gulpjs/gulp#4.0",
+    "gulp-livereload": "^3.8.1",
+    "gulp-load-plugins": "^1.3.0",
+    "gulp-plumber": "^1.1.0",
+    "gulp-stylus": "^2.5.0"
   }
 }
