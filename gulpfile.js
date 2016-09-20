@@ -4,32 +4,38 @@
 "use strict";
 const gulp = require('gulp');
 const gp = require('gulp-load-plugins')();
+
 const exec = require('child_process').exec;
 const spawn = require('child_process').spawn;
+
 
 //––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 // Handy Paths:
 //––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 const paths = {
-  styl: ['test/webapp/styl/*.styl'],
-  cssDir: 'test/webapp/css'
+  stylusIncludeDirs: ['bower_components/nog-css-reset', 'src/styl'],
+  stylFiles: ['test/webapp/styl/*.styl'],
+  htmlFiles: ['test/webapp/*.html'],
+  build: {
+    cssDir: '_build/webapp/css'
+  }
 };
 
 //––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 // Stylus Tasks:
 //––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 gulp.task('stylus', () => {
-    return gulp.src(paths.styl)
+    return gulp.src(paths.stylFiles)
         .pipe(gp.plumber())
         .pipe(gp.stylus({
-          paths: ['bower_components/nog-css-reset', 'src/styl']
+          paths: paths.stylusIncludeDirs
         }))
-        .pipe(gulp.dest(paths.cssDir));
+        .pipe(gulp.dest(paths.build.cssDir));
 });
 gulp.task('release:stylus', () => {
-    return gulp.src(paths.styl)
+    return gulp.src(paths.stylFiles)
         .pipe(gp.stylus())
-        .pipe(gulp.dest(paths.cssDir));
+        .pipe(gulp.dest(paths.build.cssDir));
 });
 
 //––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
@@ -44,26 +50,38 @@ gulp.task('build', gulp.series(buildTasks));
 gulp.task('release', gulp.series(releaseTasks));
 
 //––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+// Watching and Live Reloading Tasks:
+//––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+gulp.task('watch:html', () => {
+  gulp.watch(paths.htmlFiles).on('change', function(file) {
+    gp.livereload.changed(file);
+  });
+});
+
+gulp.task('watch')
+
+
+//––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 // Testing Tasks:
 //––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
-gulp.task('doNpmStart', function(done) {
-
+gulp.task('runTestServer', function(done) {
   const child = spawn('node', ['test/server.js']);
-
-  //child.stdout.on('data', function(chunk) {
-  //});
   child.stdout.pipe(process.stdout);
   child.stderr.pipe(process.stderr);
-
   child.on('close', code => {
-    console.info(`'npm start' child process exited with code ${code}`);
+    console.info(`Test server child process exited with code ${code}.`);
+    done();
   });
-
-  //const cmd = `npm start`;
-  //exec(cmd, (error, stdout, stderr) => {
-  //});
 });
-gulp.task('test', gulp.series('build', 'doNpmStart'))
+gulp.task('test', gulp.series('build', 'runTestServer'))
+
+//––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+// Cleaning Tasks:
+//––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+gulp.task('clean', function(done) {
+  console.info('CLEAN!');
+  done();
+});
 
 //––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 // Default Task:
