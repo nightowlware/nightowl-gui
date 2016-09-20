@@ -1,2 +1,2 @@
 # nightowl-gui
-NightOwl GUI is a simple GUI system for the web.
+NightOwl GUI (nog) is a simple GUI system for the web.
