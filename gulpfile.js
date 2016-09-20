@@ -4,10 +4,8 @@
 "use strict";
 const gulp = require('gulp');
 const gp = require('gulp-load-plugins')();
-
-const exec = require('child_process').exec;
+const del = require('del');
 const spawn = require('child_process').spawn;
-
 
 //––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 // Handy Paths:
@@ -58,7 +56,7 @@ gulp.task('watch:html', () => {
   });
 });
 
-gulp.task('watch')
+//gulp.task('watch')
 
 
 //––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
@@ -79,9 +77,11 @@ gulp.task('test', gulp.series('build', 'runTestServer'))
 // Cleaning Tasks:
 //––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 gulp.task('clean', function(done) {
-  console.info('CLEAN!');
-  done();
+  return del(['./_build/']);
 });
+gulp.task('deep-clean', gulp.series('clean', function(done) {
+  return del(['./bower_components/', './node_modules/']);
+}));
 
 //––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 // Default Task:
