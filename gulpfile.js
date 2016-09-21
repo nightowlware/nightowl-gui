@@ -55,9 +55,11 @@ gulp.task('watch:html', () => {
     gp.livereload.changed(file);
   });
 });
-
-//gulp.task('watch')
-
+function startLiveReload(done) {
+  gp.livereload.listen();
+  done();
+}
+gulp.task('watch', gulp.series(startLiveReload, gulp.parallel('watch:html')));
 
 //––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 // Testing Tasks:
@@ -71,7 +73,7 @@ gulp.task('runTestServer', function(done) {
     done();
   });
 });
-gulp.task('test', gulp.series('build', 'runTestServer'))
+gulp.task('test', gulp.series('build', gulp.parallel('runTestServer', 'watch')));
 
 //––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 // Cleaning Tasks:
